@@ -16,6 +16,10 @@ def from_angle(angle):
     return from_rad(np.radians(angle))
 
 
+def from_scale(s):
+    return np.diag([s, s, 1])
+
+
 def from_uniform_scale(s):
     return np.diag([s, s, 1])
 
@@ -30,3 +34,8 @@ def from_center_rotate(center, angle, scale):
     ret = np.eye(3)
     ret[:2, :] = cv2.getRotationMatrix2D(center, angle, scale)
     return ret
+
+
+def fix_opencv_(transform):
+    transform = from_translate(0.5) @ transform @ from_translate(-0.5)
+    return transform

@@ -115,7 +115,7 @@ def _asm_solve(src, dst, estimate_scale=True):
         sr = sr / np.linalg.norm(sr, axis=0, keepdims=True)
     t = dst_mean - src_mean @ sr.T
 
-    ret = np.identity(3)
+    ret = np.identity(3, dtype=src.dtype)
     ret[:2, :2] = sr
     ret[:2, 2] = t
     return ret
